@@ -1,0 +1,9 @@
+.poll-card-wrapper {
+    margin: 2% 1% 2% 1%;
+} 
+
+.tag-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}

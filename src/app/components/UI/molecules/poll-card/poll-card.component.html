@@ -1,0 +1,29 @@
+<div class="poll-card-wrapper">
+    <nz-card 
+        style="width:300px;" 
+        [nzActions]="[
+            actionSetting, 
+            actionEdit, 
+            actionEllipsis]">
+        <nz-card-meta
+          nzTitle="{{poll?.name}}"
+          nzDescription="{{poll?.description}}"
+        ></nz-card-meta>
+        <nz-divider></nz-divider>
+        <div class="tag-wrapper">
+            <nz-tag *ngIf="poll?.isOpen" nzColor="success">OPEN</nz-tag>
+            <nz-tag *ngIf="!poll?.isOpen" nzColor="error">CLOSED</nz-tag>
+            <nz-tag *ngIf="poll?.isPublic" nzColor="processing">PUBLIC</nz-tag>
+            <nz-tag *ngIf="!poll?.isPublic" nzColor="default">PRIVATE</nz-tag>
+        </div>
+      </nz-card>
+      <ng-template #actionSetting>
+        <i nz-icon nzType="pie-chart" nzTheme="outline"></i>
+      </ng-template>
+      <ng-template #actionEdit>
+        <i nz-icon nzType="edit" nzTheme="outline"></i>
+      </ng-template>
+      <ng-template #actionEllipsis>
+        <i nz-icon nzType="delete" nzTheme="outline"></i>
+      </ng-template>
+</div>

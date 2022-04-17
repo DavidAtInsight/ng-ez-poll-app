@@ -1,0 +1,14 @@
+.my-polls-wrapper {
+    margin-top: 3%;
+}
+
+.poll-cards-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.no-polls-message {
+    margin: 10%;
+    color: rgb(102, 102, 102);
+}

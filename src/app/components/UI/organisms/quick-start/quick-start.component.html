@@ -1,0 +1,27 @@
+<nz-card class="quick-start-card" style="width:100%" [nzTitle]="title">
+    <ng-template #title>
+        <h1>Start using EzPoll today!</h1> 
+    </ng-template>
+    <button 
+        routerLink="dashboard"
+        nzBlock
+        nz-button 
+        nzSize="large"
+        nzType="primary"
+    >
+        Creat Poll Now!
+    </button>
+    <nz-divider [nzText]="text">
+        <ng-template #text>
+            OR
+        </ng-template>
+    </nz-divider>
+    <button 
+        nzBlock
+        nz-button 
+        nzSize="large"
+        nzType="primary"
+    >
+        Take Poll Now!
+    </button>
+  </nz-card>
