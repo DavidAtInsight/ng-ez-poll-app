@@ -1,0 +1,30 @@
+.signup-wrapper {
+    display: block;
+    text-align: center;
+    padding: 5%;
+}
+
+.signup-card {
+    margin: 0 auto;
+    padding: 0% 3% 0% 3%;
+}
+
+.signup-form {
+    max-width: 100%;
+}
+
+.form-item {
+    margin-bottom: 16px;
+}
+
+.form-input {
+    width: 300px;
+}
+
+.signup-form-margin {
+    margin-bottom: 16px;
+}
+
+.signup-form-button {
+    width: 100%;
+}

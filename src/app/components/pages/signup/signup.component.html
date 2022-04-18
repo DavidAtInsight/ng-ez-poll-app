@@ -1,0 +1,47 @@
+<div class="signup-wrapper">
+    <nz-card class="signup-card" style="width:300px" [nzTitle]="title">
+        <ng-template #title>
+            <h3>Signup</h3> 
+        </ng-template>
+        <form 
+            nz-form 
+            [formGroup]="signupForm" 
+            class="signup-form" 
+            (ngSubmit)="onSubmit()"
+        >
+            <nz-form-item class="form-item">
+              <nz-form-control nzErrorTip="Please input your username!">
+                <nz-input-group nzPrefixIcon="user">
+                  <input 
+                    type="text" 
+                    nz-input 
+                    class="form-input"
+                    formControlName="signupEmail" 
+                    placeholder="Username" 
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="form-item">
+              <nz-form-control nzErrorTip="Please input your Password!">
+                <nz-input-group nzPrefixIcon="lock">
+                  <input 
+                    type="password" 
+                    nz-input 
+                    class="form-input"
+                    formControlName="signupPassword" 
+                    placeholder="Password" 
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+            <button 
+                nz-button 
+                [disabled]="signupForm.invalid"
+                class="signup-form-button signup-form-margin" 
+                [nzType]="'primary'">Sign up</button>
+            Or <a routerLink="/login">log in here...</a>
+        </form>
+    </nz-card>
+</div>
+

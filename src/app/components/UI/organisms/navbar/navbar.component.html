@@ -4,21 +4,25 @@
         <nz-page-header-subtitle>Polling made easy.</nz-page-header-subtitle>
         <nz-page-header-extra>
             <button 
+                routerLink="/login"
                 nz-button 
                 nzType="primary"
                 *ngIf="!isAuth"
             >
                 <i nz-icon nzType="login" nzTheme="outline"></i>
-                Login
+                Log in
             </button>
             <button 
+                (click)="logout()"
+                routerLink="/"
                 nz-button 
                 nzType="primary"
                 *ngIf="isAuth"
             >
                 <i nz-icon nzType="logout" nzTheme="outline"></i>
-                Logout
+                Log out
             </button>
+            <!-- *ngIf="isAuth" -->
         </nz-page-header-extra>
     </nz-page-header>
 </div>
