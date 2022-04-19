@@ -40,11 +40,16 @@
                 <a >Forgot password</a>
               </div>
             </div>
-            <button 
+            <nz-form-control>
+              <button 
                 nz-button 
                 [disabled]="loginForm.invalid"
                 class="login-form-button login-form-margin" 
-                [nzType]="'primary'">Log in</button>
+                [nzType]="'primary'"
+              >
+                Log in
+              </button>
+            </nz-form-control>
             Or <a routerLink="/signup">sign up now!</a>
         </form>
     </nz-card>

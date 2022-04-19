@@ -18,14 +18,14 @@ export class NavbarComponent implements OnInit, OnChanges {
 
   constructor(private authService: AuthService, private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.isAuth = this.appUser?.isAuthenticated;
   }
 
-  logout() {
+  logout(): void {
     this.authService.
       logoutUser().
       then(() => this.router.navigate(['/'])).

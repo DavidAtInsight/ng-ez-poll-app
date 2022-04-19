@@ -35,11 +35,16 @@
                 </nz-input-group>
               </nz-form-control>
             </nz-form-item>
-            <button 
+            <nz-form-control>
+              <button 
                 nz-button 
                 [disabled]="signupForm.invalid"
                 class="signup-form-button signup-form-margin" 
-                [nzType]="'primary'">Sign up</button>
+                [nzType]="'primary'"
+              >
+                Sign up
+              </button>
+            </nz-form-control>
             Or <a routerLink="/login">log in here...</a>
         </form>
     </nz-card>

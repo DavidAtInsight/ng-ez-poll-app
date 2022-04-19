@@ -1,7 +1,7 @@
 <div class="poll-form-wrapper">
     <form 
         nz-form 
-        [formGroup]="createPollForm!" 
+        [formGroup]="createPollForm" 
         (ngSubmit)="onSubmit()"
     >
         <nz-form-item class="form-item">
@@ -78,18 +78,13 @@
             </nz-form-control>
         </nz-form-item>
         <div formArrayName="questions">
-            <div *ngFor="let question of questions().controls; let questionIndex = index; last as isLast; first as isFirst">
-                <nz-divider></nz-divider>
+            <div *ngFor="let question of questions().controls; let questionIndex = index; last as isLastQuestion; first as isFirstQuestion">
+                <nz-divider [nzText]="questionDivider"></nz-divider>
                 <div [formGroupName]="questionIndex">
                     <nz-form-item class="form-item">
-                        <nz-form-label
-                            [nzSm]="6" 
-                            [nzXs]="24" 
-                            nzRequired 
-                            nzFor="email"
-                        >
-                            Question {{questionIndex + 1}}
-                        </nz-form-label>
+                        <ng-template #questionDivider>
+                            <span>Question {{questionIndex + 1}}</span>
+                        </ng-template>
                         <nz-form-control nzErrorTip="Required">
                             <nz-input-group>
                                 <textarea 
@@ -102,19 +97,8 @@
                         </nz-form-control>
                     </nz-form-item>
                     <button 
-                        (click)="addQuestion()"
-                        *ngIf="isLast"
-                        nz-button 
-                        nzShape="circle"
-                        nzType="primary"
-                        nzSize="small"
-                    >
-                        <i nz-icon nzType="plus" nzTheme="outline"></i>
-                    </button>
-                    <p *ngIf="isLast">Add Question</p>
-                    <button 
                         (click)="removeQuestion(questionIndex)"
-                        *ngIf="!isFirst"
+                        *ngIf="!isFirstQuestion"
                         nz-button 
                         nzShape="circle"
                         nzType="primary"
@@ -123,9 +107,75 @@
                     >
                         <i nz-icon nzType="minus" nzTheme="outline"></i>
                     </button>
-                    <p *ngIf="!isFirst">Remove Question</p>
+                    <p *ngIf="!isFirstQuestion">Remove Question</p>
+                    <div formArrayName="options">
+                        <div *ngFor="let option of questionOptions(questionIndex).controls; let optionIndex = index; last as isLastOption; first as isFirstOption">
+                            <div [formGroupName]="optionIndex">
+                                <nz-form-item class="form-item">
+                                    <nz-form-label
+                                        [nzSm]="6" 
+                                        [nzXs]="24" 
+                                        nzRequired 
+                                    >
+                                        Option {{optionIndex + 1}}
+                                    </nz-form-label>
+                                    <nz-form-control nzErrorTip="Required">
+                                        <nz-input-group>
+                                            <textarea 
+                                                nz-input 
+                                                formControlName="text"
+                                                placeholder="Add option here..." 
+                                                [nzAutosize]="{ minRows: 1, maxRows: 3 }"
+                                            ></textarea>
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <button 
+                                    (click)="addQuestionOption(questionIndex)"
+                                    *ngIf="isLastOption"
+                                    nz-button 
+                                    nzShape="circle"
+                                    nzType="primary"
+                                    nzSize="small"
+                                >
+                                    <i nz-icon nzType="plus" nzTheme="outline"></i>
+                                </button>
+                                <button 
+                                    (click)="removeQuestionOption(questionIndex, optionIndex)"
+                                    *ngIf="!isFirstOption"
+                                    nz-button 
+                                    nzShape="circle"
+                                    nzType="primary"
+                                    nzSize="small"
+                                    nzDanger
+                                >
+                                    <i nz-icon nzType="minus" nzTheme="outline"></i>
+                                </button>
+                            </div>  
+                        </div>
+                    </div>
+                    <nz-divider *ngIf="isLastQuestion" nzText="Add Question"></nz-divider>
+                    <button 
+                        (click)="addQuestion(questionIndex + 1)"
+                        *ngIf="isLastQuestion"
+                        nz-button 
+                        nzShape="circle"
+                        nzType="primary"
+                        nzSize="small"
+                    >
+                        <i nz-icon nzType="plus" nzTheme="outline"></i>
+                    </button>
                 </div> 
             </div>
         </div>
+        <nz-form-control>
+            <button 
+              nz-button 
+              [disabled]="createPollForm.invalid"
+              [nzType]="'primary'"
+            >
+              Create
+            </button>
+          </nz-form-control>
     </form>
 </div>

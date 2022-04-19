@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { User } from 'src/app/models/auth/user.model';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, OnChanges, OnDestroy {
   appUser?: User;
   authSubscription = new Subscription();
   
@@ -20,8 +20,12 @@ export class AppComponent implements OnInit, OnDestroy {
     this.authService.isAuthListener();
 
     this.authSubscription = this.authService.authUser.subscribe(authUser => {
-      this.appUser = authUser;
-    })
+        this.appUser = authUser;
+      })
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.appUser = this.appUser;
   }
 
   ngOnDestroy() {

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 //import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { PollFormComponent } from '../../molecules/poll-form/poll-form.component';
 import { Poll } from 'src/app/models/poll/poll.model';
+import { User } from 'src/app/models/auth/user.model';
 
 @Component({
   selector: 'app-create-poll',
@@ -10,29 +11,14 @@ import { Poll } from 'src/app/models/poll/poll.model';
   styleUrls: ['./create-poll.component.css']
 })
 export class CreatePollComponent implements OnInit {
-  // questionsArray = new FormArray([new FormControl('', [Validators.required])]);
-  // optionsArray = new FormArray([new FormControl('', [Validators.required])]);
-  // addQuestionsForm = new FormGroup({
-  //   questions: this.questionsArray,
-  //   options: this.optionsArray
-  // })
-  // createPollForm = new FormGroup({
-  //   pollName: new FormControl('', [Validators.required]),
-  //   pollDescription: new FormControl('', [Validators.required]),
-  //   isOpen: new FormControl(''),
-  //   isPublic: new FormControl(''),
-  //   questions: this.questionsArray,
-  //   options: this.optionsArray
-  // })
   // pollData?: Poll;
-  // questionNumber = 1;
-  // questionNumberArray: number[] = [];
   isVisible = false;
+
+  @Input() appUser?: User;
 
   constructor() { }
 
   ngOnInit(): void {
-    //this.questionNumberArray.push(this.questionNumber);
   }
 
   showModal(): void {
@@ -46,13 +32,5 @@ export class CreatePollComponent implements OnInit {
   cancelCreate(): void {
     this.isVisible = false;
   }
-
-  // addQuestion(): void {
-  //   this.questionsArray.push(new FormControl('', Validators.required));
-  // }
-
-  // addOption(): void {
-  //   this.optionsArray.push(new FormControl('', Validators.required));
-  // }
 
 }
