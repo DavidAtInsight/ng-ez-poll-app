@@ -21,7 +21,7 @@ export class SignupComponent implements OnInit {
       Validators.minLength(6)
     ])
   })
-  authData: AuthData = { email: '', password: '' };
+  authData?: AuthData;
 
   constructor(private readonly authService: AuthService, private readonly router: Router) { }
 

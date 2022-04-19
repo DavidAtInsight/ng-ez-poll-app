@@ -1,0 +1,131 @@
+<div class="poll-form-wrapper">
+    <form 
+        nz-form 
+        [formGroup]="createPollForm!" 
+        (ngSubmit)="onSubmit()"
+    >
+        <nz-form-item class="form-item">
+            <nz-form-label 
+                [nzSm]="6" 
+                [nzXs]="24" 
+                nzRequired 
+            >
+                Poll Name
+            </nz-form-label>
+            <nz-form-control nzErrorTip="Required">
+                <nz-input-group>
+                    <input 
+                        type="text" 
+                        nz-input 
+                        formControlName="name" 
+                        placeholder="Add poll name here..." 
+                    />
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="form-item">
+            <nz-form-label 
+                [nzSm]="6" 
+                [nzXs]="24" 
+                nzRequired 
+            >
+                Poll Description
+            </nz-form-label>
+            <nz-form-control nzErrorTip="Required">
+                <nz-input-group>
+                    <textarea 
+                        nz-input 
+                        formControlName="description"
+                        placeholder="Add description here..." 
+                        [nzAutosize]="{ minRows: 3, maxRows: 5 }"
+                    >
+                    </textarea>
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="form-item">
+            <nz-form-label 
+                [nzSm]="6" 
+                [nzXs]="24"  
+            >
+                Open to Responses
+            </nz-form-label>
+            <nz-form-control nzErrorTip="Required">
+                <nz-input-group>
+                    <nz-switch 
+                        nz-input 
+                        nzSize="small"
+                        formControlName="isOpen"
+                    ></nz-switch>
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="form-item">
+            <nz-form-label 
+                [nzSm]="6" 
+                [nzXs]="24"  
+            >
+                Make Public
+            </nz-form-label>
+            <nz-form-control nzErrorTip="Required">
+                <nz-input-group>
+                    <nz-switch 
+                        nz-input 
+                        nzSize="small"
+                        formControlName="isPublic"
+                    ></nz-switch>
+                </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+        <div formArrayName="questions">
+            <div *ngFor="let question of questions().controls; let questionIndex = index; last as isLast; first as isFirst">
+                <nz-divider></nz-divider>
+                <div [formGroupName]="questionIndex">
+                    <nz-form-item class="form-item">
+                        <nz-form-label
+                            [nzSm]="6" 
+                            [nzXs]="24" 
+                            nzRequired 
+                            nzFor="email"
+                        >
+                            Question {{questionIndex + 1}}
+                        </nz-form-label>
+                        <nz-form-control nzErrorTip="Required">
+                            <nz-input-group>
+                                <textarea 
+                                    nz-input 
+                                    formControlName="text"
+                                    placeholder="Add question here..." 
+                                    [nzAutosize]="{ minRows: 2, maxRows: 5 }"
+                                ></textarea>
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <button 
+                        (click)="addQuestion()"
+                        *ngIf="isLast"
+                        nz-button 
+                        nzShape="circle"
+                        nzType="primary"
+                        nzSize="small"
+                    >
+                        <i nz-icon nzType="plus" nzTheme="outline"></i>
+                    </button>
+                    <p *ngIf="isLast">Add Question</p>
+                    <button 
+                        (click)="removeQuestion(questionIndex)"
+                        *ngIf="!isFirst"
+                        nz-button 
+                        nzShape="circle"
+                        nzType="primary"
+                        nzSize="small"
+                        nzDanger
+                    >
+                        <i nz-icon nzType="minus" nzTheme="outline"></i>
+                    </button>
+                    <p *ngIf="!isFirst">Remove Question</p>
+                </div> 
+            </div>
+        </div>
+    </form>
+</div>

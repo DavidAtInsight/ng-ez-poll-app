@@ -1,5 +1,6 @@
 <div class="create-poll-wrapper">
     <button 
+        (click)="showModal()"
         nz-button 
         nzSize="large"
         nzType="primary"
@@ -7,4 +8,156 @@
         <i nz-icon nzType="appstore-add" nzTheme="outline"></i>
         Create New Poll
     </button>
+    <nz-modal 
+        [(nzVisible)]="isVisible" 
+        nzTitle="Create New Poll" 
+        (nzOnCancel)="cancelCreate()" 
+        (nzOnOk)="createPoll()"
+        nzOkText="Create"
+        nzCancelText="Cancel"
+    >
+        <ng-container *nzModalContent>
+            <app-poll-form></app-poll-form>
+            <!-- <div class="create-poll-form">
+                [nzOkDisabled]="createPollForm.invalid"
+                <form 
+                    nz-form 
+                    [formGroup]="createPollForm" 
+                >
+                    <nz-form-item class="form-item">
+                        <nz-form-label 
+                            [nzSm]="6" 
+                            [nzXs]="24" 
+                            nzRequired 
+                        >Name</nz-form-label>
+                        <nz-form-control nzErrorTip="Required">
+                            <nz-input-group>
+                                <input 
+                                    type="text" 
+                                    nz-input 
+                                    formControlName="pollName" 
+                                    placeholder="Poll Name" 
+                                />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item class="form-item">
+                        <nz-form-label 
+                            [nzSm]="6" 
+                            [nzXs]="24" 
+                            nzRequired 
+                            nzFor="email"
+                        >Description</nz-form-label>
+                        <nz-form-control nzErrorTip="Required">
+                            <nz-input-group>
+                                <textarea 
+                                    nz-input 
+                                    formControlName="pollDescription"
+                                    placeholder="Enter description here..." 
+                                    [nzAutosize]="{ minRows: 3, maxRows: 5 }"
+                                >
+                                </textarea>
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item class="form-item">
+                        <nz-form-label 
+                            [nzSm]="6" 
+                            [nzXs]="24" 
+                            nzRequired 
+                            nzFor="email"
+                        >Open to Responses</nz-form-label>
+                        <nz-form-control nzErrorTip="Required">
+                            <nz-input-group>
+                                <nz-switch 
+                                    nz-input 
+                                    formControlName="isOpen"
+                                ></nz-switch>
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item class="form-item">
+                        <nz-form-label 
+                            [nzSm]="6" 
+                            [nzXs]="24" 
+                            nzRequired 
+                            nzFor="email"
+                        >Make Public</nz-form-label>
+                        <nz-form-control nzErrorTip="Required">
+                            <nz-input-group>
+                                <nz-switch 
+                                    nz-input 
+                                    formControlName="isPublic"
+                                ></nz-switch>
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <div *ngFor="let question of questionsArray.controls; last as isLast">
+                        <nz-divider></nz-divider>
+                        <nz-form-item class="form-item">
+                            <nz-form-label
+                                [nzSm]="6" 
+                                [nzXs]="24" 
+                                nzRequired 
+                                nzFor="email"
+                            >Question</nz-form-label>
+                            <nz-form-control nzErrorTip="Required">
+                                <nz-input-group>
+                                    <textarea 
+                                        nz-input 
+                                        [formControl]="$any(question)"
+                                        placeholder="Enter question here..." 
+                                        [nzAutosize]="{ minRows: 2, maxRows: 5 }"
+                                    ></textarea>
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <button 
+                            (click)="addQuestion()"
+                            *ngIf="isLast"
+                            nz-button 
+                            nzShape="circle"
+                            [nzType]="'primary'"
+                        >
+                            <i nz-icon nzType="plus" nzTheme="outline"></i>
+                        </button>
+                        <p *ngIf="isLast">Add Question</p>
+                        <div *ngFor="let option in optionsArray.controls; last as isLast">
+                            <nz-divider></nz-divider>
+                            <nz-form-item class="form-item">
+                                <nz-form-label
+                                    [nzSm]="6" 
+                                    [nzXs]="24" 
+                                    nzRequired 
+                                    nzFor="email"
+                                >Option</nz-form-label>
+                                <nz-form-control nzErrorTip="Required">
+                                    <nz-input-group>
+                                        <label nz-radio nzDisabled="true">
+                                            <textarea 
+                                                nz-input 
+                                                [formControl]="$any(question)"
+                                                placeholder="Enter question here..." 
+                                                [nzAutosize]="{ minRows: 2, maxRows: 5 }"
+                                            ></textarea>
+                                        </label>
+                                    </nz-input-group>
+                                </nz-form-control>
+                            </nz-form-item>
+                            <button 
+                                (click)="addOption()"
+                                *ngIf="isLast"
+                                nz-button 
+                                nzShape="circle"
+                                [nzType]="'primary'"
+                            >
+                                <i nz-icon nzType="plus" nzTheme="outline"></i>
+                            </button>
+                            <p *ngIf="isLast">Add Option</p>
+                        </div>
+                    </div>
+                </form>
+            </div> -->
+        </ng-container>
+      </nz-modal>
 </div>

@@ -10,7 +10,6 @@ import { LandingPageComponent } from './components/pages/landing-page/landing-pa
 import { LoginComponent } from './components/pages/login/login.component';
 import { SignupComponent } from './components/pages/signup/signup.component';
 
-
 //const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['/login']);
 
 const routes: Routes = [

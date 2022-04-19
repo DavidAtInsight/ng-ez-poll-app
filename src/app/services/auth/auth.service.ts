@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 //import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth'
-import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 import { AuthData } from 'src/app/models/auth/auth-data.model';
 import { User } from 'src/app/models/auth/user.model';
@@ -11,28 +11,37 @@ import { User } from 'src/app/models/auth/user.model';
   providedIn: 'root'
 })
 export class AuthService {
-  //private isAuthenticated: boolean = false;
-  private user: User;
-  observableUser: BehaviorSubject<User>;
+  private isAuthenticated?: boolean;
+  public authUser: Subject<User>;
 
   constructor(private auth: AngularFireAuth) {
-    this.user = { email: '', userId: '', isAuthenticated: false }
-    this.observableUser = new BehaviorSubject<User>(this.user)
+    this.authUser = new Subject<User>()
    }
 
   isAuthListener() {
     this.auth.authState.subscribe(user => {
       if (user) {
-        this.user.isAuthenticated = true;
+        this.isAuthenticated = true;
+
+        this.authUser.next({ 
+          email: user.email, 
+          userId: user.uid, 
+          isAuthenticated: this.isAuthenticated
+        });
       }
       else {
-        this.user.isAuthenticated = false;
+        this.isAuthenticated = false;
+
+        this.authUser.next({ 
+          email: '', 
+          userId: '', 
+          isAuthenticated: this.isAuthenticated
+        });
       }
     })
   }
   
   loginUser(authData: AuthData) {
-    this.user.email = authData.email;
     return this.auth.signInWithEmailAndPassword(authData.email, authData.password);
   }
 
@@ -41,12 +50,11 @@ export class AuthService {
   }
 
   logoutUser() {
-    this.user.email = '';
     return this.auth.signOut();
   }
 
-  isAuth() {
-    return this.user.isAuthenticated;
+  isLoggedIn() {
+    return this.isAuthenticated;
   }
 
 }
