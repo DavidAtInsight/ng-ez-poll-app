@@ -3,25 +3,27 @@
         <nz-page-header-title class="nav-bar-title"><app-logo routerLink="/"></app-logo></nz-page-header-title>
         <nz-page-header-subtitle>Polling made easy.</nz-page-header-subtitle>
         <nz-page-header-extra>
-            <button 
-                routerLink="/login"
-                nz-button 
-                nzType="primary"
-                *ngIf="!isAuth"
-            >
-                <i nz-icon nzType="login" nzTheme="outline"></i>
-                Log in
-            </button>
-            <button 
-                (click)="logout()"
-                routerLink="/"
-                nz-button 
-                nzType="primary"
-                *ngIf="isAuth"
-            >
-                <i nz-icon nzType="logout" nzTheme="outline"></i>
-                Log out
-            </button>
+            <div *ngIf="currentUser$ | async as user">
+                <button 
+                    routerLink="/login"
+                    nz-button 
+                    nzType="primary"
+                    *ngIf="!user.isAuthenticated"
+                >
+                    <i nz-icon nzType="login" nzTheme="outline"></i>
+                    Log in
+                </button>
+                <button 
+                    (click)="logout()"
+                    routerLink="/"
+                    nz-button 
+                    nzType="primary"
+                    *ngIf="user.isAuthenticated"
+                >
+                    <i nz-icon nzType="logout" nzTheme="outline"></i>
+                    Log out
+                </button>
+            </div> 
         </nz-page-header-extra>
     </nz-page-header>
 </div>

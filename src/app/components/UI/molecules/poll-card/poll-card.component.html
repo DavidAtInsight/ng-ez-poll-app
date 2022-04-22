@@ -18,12 +18,18 @@
         </div>
       </nz-card>
       <ng-template #actionSetting>
-        <i nz-icon nzType="pie-chart" nzTheme="outline"></i>
+        <span nz-tooltip nzTooltipTitle="View Responses" nzTooltipPlacement="bottom">
+            <i nz-icon nzType="pie-chart" nzTheme="outline"></i>
+        </span>
       </ng-template>
       <ng-template #actionEdit>
-        <i nz-icon nzType="edit" nzTheme="outline"></i>
+        <span nz-tooltip nzTooltipTitle="Edit Poll" nzTooltipPlacement="bottom">
+            <i nz-icon nzType="edit" nzTheme="outline"></i>
+        </span>
       </ng-template>
       <ng-template #actionEllipsis>
-        <i nz-icon nzType="delete" nzTheme="outline"></i>
+        <span nz-tooltip nzTooltipTitle="Delete Poll" nzTooltipPlacement="bottom">
+            <i nz-icon nzType="delete" nzTheme="outline"></i>
+        </span>
       </ng-template>
 </div>

@@ -17,19 +17,19 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.isAuthListener();
+    this.authService.isAuthListener(); //REMOVE??
 
-    this.authSubscription = this.authService.authUser.subscribe(authUser => {
+    this.authSubscription = this.authService.authUserOld.subscribe(authUser => {
         this.appUser = authUser;
-      })
+      }) //REMOVE???
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.appUser = this.appUser;
+    this.appUser = this.appUser;//REMOVE??
   }
 
   ngOnDestroy() {
-    this.authSubscription.unsubscribe();
+    this.authSubscription.unsubscribe();//REMOVE??
   }
 
 }

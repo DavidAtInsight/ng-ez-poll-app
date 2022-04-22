@@ -1,10 +1,6 @@
-import { Option } from './option.model';
-import { Response } from './response.model';
-
 export interface Question {
-    id: string;
-    pollId: string;
-    text: string;
-    options: Option[];
-    responses: Response[];
+    id: number; //formbuilder question index
+    text: string; //form input
+    options: string[]; //form input
+    responses: string[]; //form input
 }

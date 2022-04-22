@@ -3,6 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { userReducer } from './state/user/user.reducer';
+import { EffectsModule } from '@ngrx/effects';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
@@ -17,7 +21,7 @@ import { LoginComponent } from './components/pages/login/login.component';
 import { PollCardComponent } from './components/UI/molecules/poll-card/poll-card.component';
 import { CreatePollComponent } from './components/UI/organisms/create-poll/create-poll.component';
 import { FooterComponent } from './components/UI/organisms/footer/footer.component';
-import { MyPollsComponent } from './components/UI/organisms/my-polls/my-polls.component';
+import { PollCollectionComponent } from './components/UI/organisms/poll-collection/poll-collection.component';
 import { NavbarComponent } from './components/UI/organisms/navbar/navbar.component';
 import { SignupComponent } from './components/pages/signup/signup.component';
 import { QuickStartComponent } from './components/UI/organisms/quick-start/quick-start.component';
@@ -26,6 +30,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -35,6 +40,7 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzTagModule } from 'ng-zorro-antd/tag';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 import { IconDefinition } from '@ant-design/icons-angular';
@@ -55,6 +61,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './services/auth/auth.service';
 import { PollService } from './services/poll/poll.service';
 import { PollFormComponent } from './components/UI/molecules/poll-form/poll-form.component';
+import { UserEffects } from './state/user/user.effects';
 
 const icons: IconDefinition[] = [
   AppstoreAddOutline,
@@ -78,9 +85,9 @@ const icons: IconDefinition[] = [
     LogoComponent,
     LoginComponent,
     PollCardComponent,
+    PollCollectionComponent,
     CreatePollComponent,
     FooterComponent,
-    MyPollsComponent,
     NavbarComponent,
     SignupComponent,
     QuickStartComponent,
@@ -91,6 +98,12 @@ const icons: IconDefinition[] = [
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    StoreModule.forRoot({ user: userReducer}),
+    StoreDevtoolsModule.instrument({
+        maxAge: 25,
+        logOnly: environment.production,
+    }),
+    EffectsModule.forRoot([UserEffects]),
 
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
@@ -100,6 +113,7 @@ const icons: IconDefinition[] = [
     NzCardModule,
     NzCheckboxModule,
     NzDividerModule,
+    NzFormModule,
     NzGridModule,
     NzIconModule.forChild(icons),
     NzInputModule,
@@ -109,6 +123,7 @@ const icons: IconDefinition[] = [
     NzSwitchModule,
     NzSpaceModule,
     NzTagModule,
+    NzToolTipModule,
     NzTypographyModule
   ],
   providers: [

@@ -1,35 +1,31 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { Router } from '@angular/router';
-
-import { User } from 'src/app/models/auth/user.model';
+import { loadUser } from 'src/app/state/user/user.actions';
+import { selectUser } from 'src/app/state/user/user.selectors';
+import { AppState } from 'src/app/state/app.state';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit, OnChanges {
-  //let { width } = useWindowDimensions() //replace with ng resize method
-  isAuth?: boolean; 
+export class NavbarComponent implements OnInit {
+    currentUser$ = this.store.select(selectUser);
 
-  @Input() appUser?: User;
+    constructor(private store: Store<AppState>, private authService: AuthService, private router: Router) { }
 
-  constructor(private authService: AuthService, private router: Router) { }
+    ngOnInit(): void {
+        this.store.dispatch(loadUser());
+    }
 
-  ngOnInit(): void {
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.isAuth = this.appUser?.isAuthenticated;
-  }
-
-  logout(): void {
-    this.authService.
-      logoutUser().
-      then(() => this.router.navigate(['/'])).
-      catch((e) => console.log(e.message));
-  }
+    logout(): void {
+        this.authService
+            .logoutUser()
+                .then(() => this.router.navigate(['/']))
+                .catch((e) => console.log(e.message));
+    }
 
 }

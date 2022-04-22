@@ -8,7 +8,8 @@
         <i nz-icon nzType="appstore-add" nzTheme="outline"></i>
         Create New Poll
     </button>
-    <nz-modal 
+    <nz-modal
+        nzWidth="90%"
         [(nzVisible)]="isVisible" 
         nzTitle="Create New Poll" 
         (nzOnCancel)="cancelCreate()" 
@@ -19,15 +20,16 @@
         <ng-template #customModalFooter>
             <button 
                 nz-button 
-                nzType="default" 
+                nzType="text" 
                 nzSize="small"
+                nzDanger
                 (click)="cancelCreate()"
             >
                 Cancel
             </button>
         </ng-template>
         <ng-container *nzModalContent>
-            <app-poll-form [appUser]="appUser"></app-poll-form>
+            <app-poll-form (closeModal)="cancelCreate()"></app-poll-form>
         </ng-container>
       </nz-modal>
 </div>

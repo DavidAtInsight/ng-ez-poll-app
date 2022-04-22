@@ -4,16 +4,12 @@
         [formGroup]="createPollForm" 
         (ngSubmit)="onSubmit()"
     >
-        <nz-form-item class="form-item">
-            <nz-form-label 
-                [nzSm]="6" 
-                [nzXs]="24" 
-                nzRequired 
-            >
+        <nz-form-item class="poll-form-item">
+            <nz-form-label>
                 Poll Name
             </nz-form-label>
-            <nz-form-control nzErrorTip="Required">
-                <nz-input-group>
+            <nz-form-control nzErrorTip="Please enter a name for your new poll" nz-col nzSpan="24">
+                <nz-input-group class="text-input">
                     <input 
                         type="text" 
                         nz-input 
@@ -23,15 +19,11 @@
                 </nz-input-group>
             </nz-form-control>
         </nz-form-item>
-        <nz-form-item class="form-item">
-            <nz-form-label 
-                [nzSm]="6" 
-                [nzXs]="24" 
-                nzRequired 
-            >
+        <nz-form-item class="poll-form-item">
+            <nz-form-label>
                 Poll Description
             </nz-form-label>
-            <nz-form-control nzErrorTip="Required">
+            <nz-form-control nzErrorTip="Please enter a description for your new poll" nz-col nzSpan="24">
                 <nz-input-group>
                     <textarea 
                         nz-input 
@@ -43,14 +35,11 @@
                 </nz-input-group>
             </nz-form-control>
         </nz-form-item>
-        <nz-form-item class="form-item">
-            <nz-form-label 
-                [nzSm]="6" 
-                [nzXs]="24"  
-            >
+        <nz-form-item class="poll-form-item">
+            <nz-form-label>
                 Open to Responses
             </nz-form-label>
-            <nz-form-control nzErrorTip="Required">
+            <nz-form-control>
                 <nz-input-group>
                     <nz-switch 
                         nz-input 
@@ -60,14 +49,11 @@
                 </nz-input-group>
             </nz-form-control>
         </nz-form-item>
-        <nz-form-item class="form-item">
-            <nz-form-label 
-                [nzSm]="6" 
-                [nzXs]="24"  
-            >
+        <nz-form-item class="poll-form-item">
+            <nz-form-label>
                 Make Public
             </nz-form-label>
-            <nz-form-control nzErrorTip="Required">
+            <nz-form-control>
                 <nz-input-group>
                     <nz-switch 
                         nz-input 
@@ -81,11 +67,23 @@
             <div *ngFor="let question of questions().controls; let questionIndex = index; last as isLastQuestion; first as isFirstQuestion">
                 <nz-divider [nzText]="questionDivider"></nz-divider>
                 <div [formGroupName]="questionIndex">
-                    <nz-form-item class="form-item">
+                    <nz-form-item class="poll-form-item">
                         <ng-template #questionDivider>
+                            <button 
+                                class="dynamic-button"
+                                (click)="removeQuestion(questionIndex)"
+                                *ngIf="!isFirstQuestion"
+                                nz-button 
+                                nzShape="circle"
+                                nzType="primary"
+                                nzSize="small"
+                                nzDanger
+                            >
+                                <i nz-icon nzType="minus" nzTheme="outline"></i>
+                            </button>
                             <span>Question {{questionIndex + 1}}</span>
                         </ng-template>
-                        <nz-form-control nzErrorTip="Required">
+                        <nz-form-control nzErrorTip="Please enter text for this question" nz-col nzSpan="24">
                             <nz-input-group>
                                 <textarea 
                                     nz-input 
@@ -96,30 +94,27 @@
                             </nz-input-group>
                         </nz-form-control>
                     </nz-form-item>
-                    <button 
-                        (click)="removeQuestion(questionIndex)"
-                        *ngIf="!isFirstQuestion"
-                        nz-button 
-                        nzShape="circle"
-                        nzType="primary"
-                        nzSize="small"
-                        nzDanger
-                    >
-                        <i nz-icon nzType="minus" nzTheme="outline"></i>
-                    </button>
-                    <p *ngIf="!isFirstQuestion">Remove Question</p>
                     <div formArrayName="options">
                         <div *ngFor="let option of questionOptions(questionIndex).controls; let optionIndex = index; last as isLastOption; first as isFirstOption">
                             <div [formGroupName]="optionIndex">
-                                <nz-form-item class="form-item">
-                                    <nz-form-label
-                                        [nzSm]="6" 
-                                        [nzXs]="24" 
-                                        nzRequired 
-                                    >
+                                <nz-form-item class="poll-form-item">
+                                    <nz-form-label>
+                                        <button 
+                                            class="dynamic-button"
+                                            (click)="removeQuestionOption(questionIndex, optionIndex)"
+                                            *ngIf="!isFirstOption"
+                                            nz-button 
+                                            nzShape="circle"
+                                            nzType="primary"
+                                            nzSize="small"
+                                            nzDanger
+                                        >
+                                            <i nz-icon nzType="minus" nzTheme="outline"></i>
+                                        </button>
+                                        <p class="first-option-spacer" *ngIf="isFirstOption"></p>
                                         Option {{optionIndex + 1}}
                                     </nz-form-label>
-                                    <nz-form-control nzErrorTip="Required">
+                                    <nz-form-control nzErrorTip="Please enter text for this option" nz-col nzSpan="24">
                                         <nz-input-group>
                                             <textarea 
                                                 nz-input 
@@ -130,52 +125,91 @@
                                         </nz-input-group>
                                     </nz-form-control>
                                 </nz-form-item>
-                                <button 
-                                    (click)="addQuestionOption(questionIndex)"
-                                    *ngIf="isLastOption"
-                                    nz-button 
-                                    nzShape="circle"
-                                    nzType="primary"
-                                    nzSize="small"
-                                >
-                                    <i nz-icon nzType="plus" nzTheme="outline"></i>
-                                </button>
-                                <button 
-                                    (click)="removeQuestionOption(questionIndex, optionIndex)"
-                                    *ngIf="!isFirstOption"
-                                    nz-button 
-                                    nzShape="circle"
-                                    nzType="primary"
-                                    nzSize="small"
-                                    nzDanger
-                                >
-                                    <i nz-icon nzType="minus" nzTheme="outline"></i>
-                                </button>
+                                <nz-form-item class="poll-form-item">
+                                    <nz-form-label *ngIf="isLastOption">
+                                        <button 
+                                            class="dynamic-button"
+                                            (click)="addQuestionOption(questionIndex)"
+                                            *ngIf="isLastOption"
+                                            nz-button 
+                                            nzShape="circle"
+                                            nzType="primary"
+                                            nzSize="small"
+                                        >
+                                            <i nz-icon nzType="plus" nzTheme="outline"></i>
+                                        </button>
+                                        Option
+                                    </nz-form-label>
+                                    <!-- <nz-form-control nzErrorTip="Please enter text for this option" nz-col nzSpan="24">
+                                        <nz-input-group>
+                                            <textarea 
+                                                nz-input 
+                                                formControlName="text"
+                                                placeholder="Add option here..." 
+                                                [nzAutosize]="{ minRows: 1, maxRows: 3 }"
+                                            ></textarea>
+                                        </nz-input-group>
+                                    </nz-form-control> -->
+                                </nz-form-item>
+                                <!-- <div class="center-button-wrapper" *ngIf="isLastOption">
+                                    <p>Add Option</p>
+                                    <button 
+                                        class="add-button"
+                                        (click)="addQuestionOption(questionIndex)"
+                                        nz-button 
+                                        nzShape="circle"
+                                        nzType="primary"
+                                        nzSize="small"
+                                    >
+                                        <i nz-icon nzType="plus" nzTheme="outline"></i>
+                                    </button> 
+                                </div>-->
                             </div>  
                         </div>
                     </div>
-                    <nz-divider *ngIf="isLastQuestion" nzText="Add Question"></nz-divider>
-                    <button 
-                        (click)="addQuestion(questionIndex + 1)"
-                        *ngIf="isLastQuestion"
-                        nz-button 
-                        nzShape="circle"
-                        nzType="primary"
-                        nzSize="small"
-                    >
-                        <i nz-icon nzType="plus" nzTheme="outline"></i>
-                    </button>
+                    <nz-divider *ngIf="isLastQuestion" [nzText]="addQuestionDivider"></nz-divider>
+                    <ng-template #addQuestionDivider>
+                        <button 
+                            class="dynamic-button"
+                            (click)="addQuestion(questionIndex + 1)"
+                            nz-button 
+                            nzShape="circle"
+                            nzType="primary"
+                            nzSize="small"
+                        >
+                            <i nz-icon nzType="plus" nzTheme="outline"></i>
+                        </button>
+                        Question
+                    </ng-template>
+                    <!-- <div class="center-button-wrapper" *ngIf="isLastQuestion">
+                        <button 
+                            class="add-button"
+                            (click)="addQuestion(questionIndex + 1)"
+                            nz-button 
+                            nzShape="circle"
+                            nzType="primary"
+                            nzSize="large"
+                        >
+                            <i nz-icon nzType="plus" nzTheme="outline"></i>
+                        </button>
+                    </div> -->
                 </div> 
             </div>
         </div>
-        <nz-form-control>
-            <button 
-              nz-button 
-              [disabled]="createPollForm.invalid"
-              [nzType]="'primary'"
-            >
-              Create
-            </button>
-          </nz-form-control>
+        <!-- <nz-divider></nz-divider> -->
+        <br/>
+        <div class="center-button-wrapper">
+            <nz-form-control>
+                <button 
+                    class="create-button"
+                    nz-button 
+                    nzSize="large"
+                    [disabled]="createPollForm.invalid"
+                    [nzType]="'primary'"
+                >
+                    Create
+                </button>
+            </nz-form-control>
+        </div>
     </form>
 </div>
