@@ -1,10 +1,9 @@
 <div class="my-polls-wrapper">
-    <nz-divider [nzText]="text">
-        <ng-template #text>
-            <h3 *ngIf="isPublic">Public Polls</h3>
-            <h3 *ngIf="!isPublic">My Polls</h3>
-        </ng-template>
-    </nz-divider>
+    <nz-divider [nzText]="text"></nz-divider>
+    <ng-template #text>
+        <h3 *ngIf="isPublic">Public Polls</h3>
+        <h3 *ngIf="!isPublic">My Polls</h3>
+    </ng-template>
     <div *ngIf="polls.length > 0" class="poll-cards-wrapper">
         <app-poll-card *ngFor="let poll of polls" [poll]="poll" [isPublic]="isPublic"></app-poll-card>
     </div>

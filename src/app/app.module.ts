@@ -38,7 +38,9 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
@@ -49,9 +51,12 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { IconDefinition } from '@ant-design/icons-angular';
 import {
     AppstoreAddOutline,
+    BarChartOutline,
     CheckCircleOutline,
     DeleteOutline,
     EditOutline,
+    InfoCircleOutline,
+    LikeOutline,
     LockOutline,
     LoginOutline,
     LogoutOutline,
@@ -65,12 +70,14 @@ import { AuthService } from './services/auth/auth.service';
 import { PollService } from './services/poll/poll.service';
 import { UserEffects } from './state/user/user.effects';
 
-
 const icons: IconDefinition[] = [
     AppstoreAddOutline,
+    BarChartOutline,
     CheckCircleOutline,
     DeleteOutline,
     EditOutline,
+    InfoCircleOutline,
+    LikeOutline,
     LockOutline,
     LoginOutline,
     LogoutOutline,
@@ -122,7 +129,9 @@ const icons: IconDefinition[] = [
         NzIconModule.forChild(icons),
         NzInputModule,
         NzModalModule,
+        NzNotificationModule,
         NzPageHeaderModule,
+        NzPopconfirmModule,
         NzRadioModule,
         NzSwitchModule,
         NzSpaceModule,

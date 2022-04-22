@@ -54,13 +54,16 @@ export class PollService {
             }));
     }
 
-    createNewPoll(poll: Poll | undefined): void {
-        if(poll) {
-            this.firestore.collection('polls').add(poll);
-        }      
+    createNewPoll(poll: Poll): void {
+        this.firestore.collection('polls').add(poll);
+  
     }
 
-    cancelSubscriptions() {
+    deletePoll(pollId: string): void {
+        this.firestore.collection('polls').doc(pollId).delete();
+    }
+
+    cancelSubscriptions(): void {
         this.firebaseSubscriptionArray.forEach(subscription => subscription.unsubscribe());
     }
 

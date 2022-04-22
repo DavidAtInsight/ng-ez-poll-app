@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
     selector: 'app-private-poll',
@@ -14,13 +15,14 @@ export class PrivatePollComponent implements OnInit {
         ])
     })
 
-    constructor(private readonly router: Router) { }
+    constructor(private notification: NzNotificationService) { }
 
     ngOnInit(): void {
     }
 
-    onSubmit() {
-        
+    onSubmit(template: TemplateRef<{}>): void {
+        //TEMPORARY
+        this.notification.template(template, { nzDuration: 10000 });
     }
 
 }

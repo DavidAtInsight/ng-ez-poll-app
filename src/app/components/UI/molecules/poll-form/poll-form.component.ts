@@ -82,8 +82,10 @@ export class PollFormComponent implements OnInit {
         //Methods to handle saving new poll to database
         onSubmit(): void {
             this.buildPollModel(this.createPollForm);
-            this.pollService.createNewPoll(this.newPoll);
-            this.closeModal.emit();
+            if (this.newPoll){
+                this.pollService.createNewPoll(this.newPoll);
+                this.closeModal.emit();
+            }
         }
         
         buildPollModel(completedPollForm: FormGroup): void {
@@ -108,6 +110,7 @@ export class PollFormComponent implements OnInit {
                     description: completedPollForm.get('description')?.value,
                     isOpen: completedPollForm.get('isOpen')?.value,
                     isPublic: completedPollForm.get('isPublic')?.value,
+                    likeCount: 0,
                     questions: this.newPollQuestions
                 }
             } else {

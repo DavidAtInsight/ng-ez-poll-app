@@ -4,7 +4,7 @@
         nz-form 
         [formGroup]="searchForm" 
         class="auth-form" 
-        (ngSubmit)="onSubmit()"
+        (ngSubmit)="onSubmit(notificationTemplate)"
     >
         <nz-form-control>
             <nz-input-group 
@@ -32,3 +32,19 @@
         </nz-form-control>
     </form>
 </div>
+
+<!------------------------------------TEMPORARY------------------------------------>
+<ng-template #notificationTemplate>
+    <div class="ant-notification-notice-content">
+        <div class="ant-notification-notice-with-icon">
+            <span class="ant-notification-notice-icon">
+            <i nz-icon nzType="info-circle" style="color: rgb(16, 142, 233);"></i>
+            </span>
+            <div class="ant-notification-notice-message">Function Coming Soon!</div>
+            <div class="ant-notification-notice-description">
+                Future Function: Modal will pop up with poll to take OR message that poll could not be found.
+                Dev Plan: Poll "Code" is simply the poll.id that will be used to query documents in Firestore. If the poll is open, it will be used with FormBuilder to dynamically render the take-poll form nested in the modal.
+            </div>
+        </div>
+    </div>
+  </ng-template>

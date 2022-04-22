@@ -1,54 +1,144 @@
 <div class="poll-card-wrapper">
     <nz-card 
-        *ngIf="!isPublic"
         style="width:300px;" 
         [nzActions]="[
-            actionResults, 
-            actionEdit, 
-            actionDelete]"
+            actionOne, 
+            actionTwo, 
+            actionThree]"
     >
             <nz-card-meta
             nzTitle="{{poll?.name}}"
             nzDescription="{{poll?.description}}"
             ></nz-card-meta>
             <nz-divider></nz-divider>
-            <div class="tag-wrapper">
+            <div class="tag-wrapper" *ngIf="isPublic">
+                <nz-tag nzColor="processing">Question Count: {{poll?.questions?.length}}</nz-tag>
+                <nz-tag *ngIf="poll?.likeCount == 0" nzColor="success">New!</nz-tag>
+                <nz-tag *ngIf="poll?.likeCount != 0" nzColor="success">Like Count: {{poll?.likeCount}}</nz-tag>
+            </div>
+            <div class="tag-wrapper" *ngIf="!isPublic">
                 <nz-tag *ngIf="poll?.isOpen" nzColor="success">OPEN</nz-tag>
                 <nz-tag *ngIf="!poll?.isOpen" nzColor="error">CLOSED</nz-tag>
                 <nz-tag *ngIf="poll?.isPublic" nzColor="processing">PUBLIC</nz-tag>
                 <nz-tag *ngIf="!poll?.isPublic" nzColor="default">PRIVATE</nz-tag>
             </div>
     </nz-card>
-    <nz-card 
-        *ngIf="isPublic"
-        style="width:300px;" 
-        [nzActions]="[
-        actionResults, 
-        actionTake]"
-    >
-            <nz-card-meta
-                nzTitle="{{poll?.name}}"
-                nzDescription="{{poll?.description}}"
-            ></nz-card-meta>
-    </nz-card>
-        <ng-template #actionResults>
-            <span nz-tooltip nzTooltipTitle="View Responses" nzTooltipPlacement="bottom">
-                <i nz-icon nzType="pie-chart" nzTheme="outline"></i>
-            </span>
+    <ng-template #actionOne>
+        <span 
+            (click)="temporaryNotification(responsesNotificationTemplate)"
+            nz-tooltip 
+            nzTooltipTitle="View Responses" 
+            nzTooltipPlacement="bottom"
+        >
+            <i nz-icon nzType="bar-chart" [nzRotate]="90" nzTheme="outline"></i>
+        </span>
+    </ng-template>
+    <ng-template #actionTwo>
+        <span 
+            (click)="temporaryNotification(takePollNotificationTemplate)"
+            *ngIf="isPublic"
+            nz-tooltip 
+            nzTooltipTitle="Take Poll" 
+            nzTooltipPlacement="bottom"
+        >
+            <i nz-icon nzType="check-circle" nzTheme="outline"></i>
+        </span>
+        <span 
+            (click)="temporaryNotification(editPollNotificationTemplate)"
+            *ngIf="!isPublic"
+            nz-tooltip 
+            nzTooltipTitle="Edit Poll" 
+            nzTooltipPlacement="bottom"
+        >
+            <i nz-icon nzType="edit" nzTheme="outline"></i>
+        </span>
+    </ng-template>
+    <ng-template #actionThree>
+        <span 
+            (click)="temporaryNotification(likePollNotificationTemplate)"
+            *ngIf="isPublic"
+            nz-tooltip 
+            nzTooltipTitle="Like Poll" 
+            nzTooltipPlacement="bottom"
+        >
+            <i nz-icon nzType="like" nzTheme="outline"></i>
+        </span>
+        <span 
+            *ngIf="!isPublic"
+            nz-popconfirm
+            nzPopconfirmTitle="Are you sure?"
+            (nzOnConfirm)="deletePoll(poll?.id)"
+            nzOkText="Delete"
+            [nzOkDanger]="true"
+            [nzIcon]="popconfirmIcon"
+            nzCancelText="Cancel"
+            nzPopconfirmPlacement="left"
+        >
+            <i nz-icon nzType="delete" nzTheme="outline"></i>
+        </span>
+        <ng-template #popconfirmIcon>
+            <i nz-icon nzType="exclamation-circle" nzTheme="fill" style="color:red;"></i>
         </ng-template>
-        <ng-template #actionEdit>
-            <span nz-tooltip nzTooltipTitle="Edit Poll" nzTooltipPlacement="bottom">
-                <i nz-icon nzType="edit" nzTheme="outline"></i>
-            </span>
-        </ng-template>
-        <ng-template #actionDelete>
-            <span nz-tooltip nzTooltipTitle="Delete Poll" nzTooltipPlacement="bottom">
-                <i nz-icon nzType="delete" nzTheme="outline"></i>
-            </span>
-        </ng-template>
-        <ng-template #actionTake>
-            <span nz-tooltip nzTooltipTitle="Take Poll" nzTooltipPlacement="bottom">
-                <i nz-icon nzType="check-circle" nzTheme="outline"></i>
-            </span>
-        </ng-template>
+    </ng-template>
 </div>
+
+<!------------------------------------TEMPORARY------------------------------------>
+<ng-template #responsesNotificationTemplate>
+    <div class="ant-notification-notice-content">
+        <div class="ant-notification-notice-with-icon">
+            <span class="ant-notification-notice-icon">
+            <i nz-icon nzType="info-circle" style="color: rgb(16, 142, 233);"></i>
+            </span>
+            <div class="ant-notification-notice-message">Function Coming Soon!</div>
+            <div class="ant-notification-notice-description">
+                Future Function: Modal will pop up with percentage results for each poll question and option in horizontal bar graph form.
+                Dev Plan: The poll.id will be used to query documents in Firestore. Each option response will be counted and divided by the total responses to give a percentage and then display it a "progress bar" in Ant Design, creating a "bar graph" of sorts.
+            </div>
+        </div>
+    </div>
+  </ng-template>
+
+  <ng-template #editPollNotificationTemplate>
+    <div class="ant-notification-notice-content">
+        <div class="ant-notification-notice-with-icon">
+            <span class="ant-notification-notice-icon">
+            <i nz-icon nzType="info-circle" style="color: rgb(16, 142, 233);"></i>
+            </span>
+            <div class="ant-notification-notice-message">Function Coming Soon!</div>
+            <div class="ant-notification-notice-description">
+                Future Function: Modal will pop up with form to edit poll. A "pop confirm" warning will show up reminding them that all responses will be deleted if questions or options are edited.
+                Dev Plan: To keep from having the result data of the poll become misaligned with changes to the poll, the restults array will be reset to [] when the changes are made to questions. The poll will be used with FormBuilder to dynamically render the edit-poll form nested in the modal. 
+            </div>
+        </div>
+    </div>
+  </ng-template>
+
+  <ng-template #takePollNotificationTemplate>
+    <div class="ant-notification-notice-content">
+        <div class="ant-notification-notice-with-icon">
+            <span class="ant-notification-notice-icon">
+            <i nz-icon nzType="info-circle" style="color: rgb(16, 142, 233);"></i>
+            </span>
+            <div class="ant-notification-notice-message">Function Coming Soon!</div>
+            <div class="ant-notification-notice-description">
+                Future Function: Modal will pop up with poll to take.
+                Dev Plan: The poll.id will be used to query documents in Firestore. The poll will be used with FormBuilder to dynamically render the take-poll form nested in the modal.
+            </div>
+        </div>
+    </div>
+  </ng-template>
+
+  <ng-template #likePollNotificationTemplate>
+    <div class="ant-notification-notice-content">
+        <div class="ant-notification-notice-with-icon">
+            <span class="ant-notification-notice-icon">
+            <i nz-icon nzType="info-circle" style="color: rgb(16, 142, 233);"></i>
+            </span>
+            <div class="ant-notification-notice-message">Function Coming Soon!</div>
+            <div class="ant-notification-notice-description">
+                Future Function: Likes will be recorded and reflected in card in realtime (i.e., no refresh, one advantage of Firestore).
+                Dev Plan: The poll.id will be used to query documents in Firestore. Which will then increment the poll.likeCount by one. Probably should make likeCount a string[] so that I can store userIds, and a poll can only be liked one time by a user (if userId.exist or something like that), but alas...
+            </div>
+        </div>
+    </div>
+  </ng-template>

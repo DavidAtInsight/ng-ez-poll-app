@@ -7,5 +7,6 @@ export interface Poll {
     description: string; //form input
     isOpen: boolean; //form input
     isPublic: boolean; //form input
+    likeCount: number; //from input
     questions: Question[]; //see model
 }
