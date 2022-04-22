@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PollCardComponent } from './poll-card.component';
+import { PrivatePollComponent } from './private-poll.component';
 
-describe('PollCardComponent', () => {
-    let component: PollCardComponent;
-    let fixture: ComponentFixture<PollCardComponent>;
+describe('PrivatePollComponent', () => {
+    let component: PrivatePollComponent;
+    let fixture: ComponentFixture<PrivatePollComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-        declarations: [ PollCardComponent ]
+        declarations: [ PrivatePollComponent ]
         })
         .compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(PollCardComponent);
+        fixture = TestBed.createComponent(PrivatePollComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

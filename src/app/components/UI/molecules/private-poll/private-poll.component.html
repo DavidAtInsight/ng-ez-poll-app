@@ -1,0 +1,34 @@
+<div class="private-poll-wrapper">
+    <h3>Have a private poll code?</h3>
+    <form 
+        nz-form 
+        [formGroup]="searchForm" 
+        class="auth-form" 
+        (ngSubmit)="onSubmit()"
+    >
+        <nz-form-control>
+            <nz-input-group 
+                nzSearch 
+                class="form-input"
+                nzPrefixIcon="lock"
+                [nzAddOnAfter]="suffixButton"
+            >
+                    <input 
+                        type="text" 
+                        nz-input 
+                        formControlName="pollId" 
+                        placeholder="Enter Poll Code Here" 
+                    />
+              </nz-input-group>
+              <ng-template #suffixButton>
+                    <button 
+                        nz-button 
+                        nzType="primary"  
+                        nzSearch
+                    >
+                        Unlock Poll
+                    </button>
+              </ng-template>
+        </nz-form-control>
+    </form>
+</div>

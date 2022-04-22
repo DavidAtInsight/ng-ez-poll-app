@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription, map } from 'rxjs';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { Poll } from 'src/app/models/poll/poll.model';
@@ -9,15 +9,17 @@ import { selectUser } from 'src/app/state/user/user.selectors';
 import { AppState } from 'src/app/state/app.state';
 
 @Component({
-  selector: 'app-poll-collection',
-  templateUrl: './poll-collection.component.html',
-  styleUrls: ['./poll-collection.component.css']
+    selector: 'app-poll-collection',
+    templateUrl: './poll-collection.component.html',
+    styleUrls: ['./poll-collection.component.css']
 })
 export class PollCollectionComponent implements OnInit, OnDestroy {
-    private realtimeSubscription = new Subscription
+    private realtimeSubscription = new Subscription();
     currentUser$ = this.store.select(selectUser);
     userId = '';
     polls: Poll[] = [];
+
+    @Input() isPublic?: boolean;
 
     constructor(private store: Store<AppState>, private pollService: PollService) { }
 
@@ -27,9 +29,20 @@ export class PollCollectionComponent implements OnInit, OnDestroy {
 
         this.realtimeSubscription = this.pollService.realtimePolls
             .subscribe((polls: Poll[]) => {
-                this.polls = polls;
-            });
-        this.pollService.getMyPolls(this.userId);
+                if (this.isPublic) {
+                    this.polls = polls.filter(poll => poll.isOpen == true);
+                } else {
+                    this.polls = polls;
+                }
+                
+            }
+        );
+
+        if (this.isPublic) {
+            this.pollService.getPublicPolls();
+        } else {
+            this.pollService.getMyPolls(this.userId);
+        }
     }
 
     ngOnDestroy(): void {

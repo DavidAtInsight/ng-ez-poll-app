@@ -4,16 +4,16 @@ import { Store } from '@ngrx/store';
 
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { loadUser } from 'src/app/state/user/user.actions';
-import { selectUser } from 'src/app/state/user/user.selectors';
+import { selectUserAuthStatus } from 'src/app/state/user/user.selectors';
 import { AppState } from 'src/app/state/app.state';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+    selector: 'app-navbar',
+    templateUrl: './navbar.component.html',
+    styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-    currentUser$ = this.store.select(selectUser);
+    isAuthenticated$ = this.store.select(selectUserAuthStatus);
 
     constructor(private store: Store<AppState>, private authService: AuthService, private router: Router) { }
 

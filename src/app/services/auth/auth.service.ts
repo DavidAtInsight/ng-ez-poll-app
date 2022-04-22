@@ -38,30 +38,6 @@ export class AuthService {
             }))
         );
     }
-
-    //REMOVE?? if ngrx manages user state, this will be replaced with method above
-    isAuthListener() {
-        this.auth.authState.subscribe(user => {
-        if (user) {
-            this.isAuthenticated = true;
-
-            this.authUserOld.next({ 
-                email: user.email, 
-                userId: user.uid, 
-                isAuthenticated: this.isAuthenticated
-            });
-        }
-        else {
-            this.isAuthenticated = false;
-
-            this.authUserOld.next({ 
-                email: '', 
-                userId: '', 
-                isAuthenticated: this.isAuthenticated
-            });
-        }
-        })
-    }
     
     loginUser(authData: AuthData) {
         return this.auth.signInWithEmailAndPassword(authData.email, authData.password);
@@ -73,11 +49,6 @@ export class AuthService {
 
     logoutUser() {
         return this.auth.signOut();
-    }
-
-    //REMOVE?? if ngrx manages user state, auth status can be checked by registering to the store
-    isLoggedIn(): boolean {
-        return this.isAuthenticated;
     }
 
 }

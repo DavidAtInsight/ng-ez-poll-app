@@ -1,11 +1,13 @@
 <div class="my-polls-wrapper">
     <nz-divider [nzText]="text">
         <ng-template #text>
-            <h3>My Polls</h3>
+            <h3 *ngIf="isPublic">Public Polls</h3>
+            <h3 *ngIf="!isPublic">My Polls</h3>
         </ng-template>
     </nz-divider>
     <div *ngIf="polls.length > 0" class="poll-cards-wrapper">
-        <app-poll-card *ngFor="let poll of polls" [poll]="poll"></app-poll-card>
+        <app-poll-card *ngFor="let poll of polls" [poll]="poll" [isPublic]="isPublic"></app-poll-card>
     </div>
-    <h3 *ngIf="polls.length === 0" class="no-polls-message">You have not created any polls yet...</h3>
+    <h3 *ngIf="polls.length === 0 && isPublic" class="no-polls-message">No public polls have been created yet... <a routerLink="/auth">Log In</a> and create one!</h3>
+    <h3 *ngIf="polls.length === 0 && !isPublic" class="no-polls-message">You have not created any polls yet...</h3>
 </div>

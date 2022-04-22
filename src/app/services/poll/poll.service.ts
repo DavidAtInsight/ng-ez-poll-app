@@ -10,13 +10,12 @@ import { Poll } from 'src/app/models/poll/poll.model';
 })
 export class PollService {
     realtimePolls = new Subject<Poll[]>();
-    private firebaseSubscription: Subscription[] = [];
-    //private polls: Poll[] = [];
+    private firebaseSubscriptionArray: Subscription[] = [];
 
     constructor(private firestore: AngularFirestore) { }
 
     getMyPolls(userId: string): void {
-        this.firebaseSubscription.push(this.firestore
+        this.firebaseSubscriptionArray.push(this.firestore
             .collection('polls', ref => 
                 ref.where('userId', '==', userId))
             .snapshotChanges()
@@ -36,10 +35,9 @@ export class PollService {
     }
 
     getPublicPolls(): void {
-        this.firebaseSubscription.push(this.firestore
+        this.firebaseSubscriptionArray.push(this.firestore
             .collection('polls', ref => 
-                ref.where('isOpen', '==', true) && 
-                ref.where('isPublic', '==', true))
+                ref.where('isPublic', '==', true)) 
             .snapshotChanges()
             .pipe(map(docArray => {
                 return docArray.map(doc => {
@@ -50,7 +48,7 @@ export class PollService {
                 })
             }))
             .subscribe((publicPolls: Poll[]) => {
-                this.realtimePolls.next(publicPolls as Poll[])
+                this.realtimePolls.next(publicPolls as Poll[]);
             }, error => {
                 //error logic here...
             }));
@@ -63,7 +61,7 @@ export class PollService {
     }
 
     cancelSubscriptions() {
-        this.firebaseSubscription.forEach(subscription => subscription.unsubscribe());
+        this.firebaseSubscriptionArray.forEach(subscription => subscription.unsubscribe());
     }
 
 }

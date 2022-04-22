@@ -1,15 +1,15 @@
-.login-wrapper {
+.auth-wrapper {
     display: block;
     text-align: center;
     padding: 5%;
 }
 
-.login-card {
+.auth-card {
     margin: 0 auto;
     padding: 0% 3% 0% 3%;
 }
 
-.login-form {
+.auth-form {
     max-width: 100%;
 }
 
@@ -21,10 +21,10 @@
     width: 300px;
 }
 
-.login-form-margin {
+.auth-form-margin {
     margin-bottom: 16px;
 }
 
-.login-form-button {
+.auth-form-button {
     width: 100%;
 }

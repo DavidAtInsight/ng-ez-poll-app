@@ -46,8 +46,8 @@ export class PollFormComponent implements OnInit {
 
         newQuestion(): FormGroup {
             return this.formBuilder.group({
-            text: ['', Validators.required],
-            options: this.formBuilder.array([])
+                text: ['', Validators.required],
+                options: this.formBuilder.array([])
             });
         }
 
@@ -66,7 +66,7 @@ export class PollFormComponent implements OnInit {
 
         newOption(): FormGroup {
             return this.formBuilder.group({
-            text: ['', Validators.required]
+                text: ['', Validators.required]
             });
         }
 

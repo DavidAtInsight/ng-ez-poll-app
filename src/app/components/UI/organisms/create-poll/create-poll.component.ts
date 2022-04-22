@@ -1,24 +1,24 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-create-poll',
-  templateUrl: './create-poll.component.html',
-  styleUrls: ['./create-poll.component.css']
+    selector: 'app-create-poll',
+    templateUrl: './create-poll.component.html',
+    styleUrls: ['./create-poll.component.css']
 })
 export class CreatePollComponent implements OnInit {
-  isVisible = false;
+    isVisible = false;
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
-  showModal(): void {
-    this.isVisible = true;
-  }
+    showModal(): void {
+        this.isVisible = true;
+    }
 
-  cancelCreate(): void {
-    this.isVisible = false;
-  }
+    cancelCreate(): void {
+        this.isVisible = false;
+    }
 
 }

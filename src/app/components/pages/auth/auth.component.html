@@ -1,0 +1,84 @@
+<div class="auth-wrapper">
+    <nz-card class="auth-card" style="width:300px" [nzTitle]="title">
+        <ng-template #title>
+            <h3 *ngIf="isLogin">Login</h3> 
+            <h3 *ngIf="!isLogin">Signup</h3> 
+        </ng-template>
+        <form 
+            nz-form 
+            [formGroup]="authForm" 
+            class="auth-form" 
+            (ngSubmit)="onSubmit()"
+        >
+            <nz-form-item class="form-item">
+              <nz-form-control nzErrorTip="Please enter your email">
+                <nz-input-group nzPrefixIcon="user">
+                  <input 
+                    type="text" 
+                    nz-input 
+                    class="form-input"
+                    formControlName="email" 
+                    placeholder="Username" 
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item class="form-item">
+              <nz-form-control nzErrorTip="Please enter your password">
+                <nz-input-group nzPrefixIcon="lock">
+                  <input 
+                    type="password" 
+                    nz-input 
+                    class="form-input"
+                    formControlName="password" 
+                    placeholder="Password" 
+                  />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+            <!-- <div class="auth-form-margin"> ADD LATER??
+              <div>
+                <a >Forgot password</a>
+              </div>
+            </div> -->
+            <nz-form-control>
+              <button 
+                *ngIf="isLogin"
+                nz-button 
+                [disabled]="authForm.invalid"
+                class="auth-form-button auth-form-margin" 
+                [nzType]="'primary'"
+              >
+                    Log in
+              </button>
+              <button 
+                *ngIf="!isLogin"
+                nz-button 
+                [disabled]="authForm.invalid"
+                class="auth-form-button auth-form-margin" 
+                [nzType]="'primary'"
+                >
+                    Sign up
+                </button>
+            </nz-form-control>
+                <button 
+                    *ngIf="isLogin"
+                    nz-button 
+                    (click)="toggleIsLogin()"
+                    [nzType]="'link'"
+                >
+                   Or sign up now!
+                </button>
+                <button 
+                    *ngIf="!isLogin"
+                    nz-button 
+                    (click)="toggleIsLogin()"
+                    [nzType]="'link'"
+                >
+                   Or log in here...
+                </button>
+                <!-- <a *ngIf="isLogin" routerLink="/signup">sign up now!</a>
+                <a *ngIf="isLogin" routerLink="/login">log in here...</a> -->
+        </form>
+    </nz-card>
+</div>

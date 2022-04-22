@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-quick-start',
-  templateUrl: './quick-start.component.html',
-  styleUrls: ['./quick-start.component.css']
+    selector: 'app-quick-start',
+    templateUrl: './quick-start.component.html',
+    styleUrls: ['./quick-start.component.css']
 })
 export class QuickStartComponent implements OnInit {
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }
