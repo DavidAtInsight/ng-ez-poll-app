@@ -16,6 +16,7 @@ import { AppState } from 'src/app/state/app.state';
 export class PollCollectionComponent implements OnInit, OnDestroy {
     private realtimeSubscription = new Subscription();
     currentUser$ = this.store.select(selectUser);
+    isLoading = true;
     userId = '';
     polls: Poll[] = [];
 
@@ -34,7 +35,10 @@ export class PollCollectionComponent implements OnInit, OnDestroy {
                 } else {
                     this.polls = polls;
                 }
-                
+
+                if (polls) {
+                    this.isLoading = false;
+                }  
             }
         );
 

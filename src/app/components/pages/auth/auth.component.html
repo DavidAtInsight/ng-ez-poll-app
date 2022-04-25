@@ -2,7 +2,8 @@
     <nz-card class="auth-card" style="width:300px" [nzTitle]="title">
         <ng-template #title>
             <h3 *ngIf="isLogin">Login</h3> 
-            <h3 *ngIf="!isLogin">Signup</h3> 
+            <h3 *ngIf="!isLogin">Signup</h3>
+            <sub *ngIf="isAuthError" style="color:red;">Invalid email or password...</sub>
         </ng-template>
         <form 
             nz-form 
@@ -36,14 +37,9 @@
                 </nz-input-group>
               </nz-form-control>
             </nz-form-item>
-            <!-- <div class="auth-form-margin"> ADD LATER??
-              <div>
-                <a >Forgot password</a>
-              </div>
-            </div> -->
             <nz-form-control>
               <button 
-                *ngIf="isLogin"
+                *ngIf="isLogin && !isLoading"
                 nz-button 
                 [disabled]="authForm.invalid"
                 class="auth-form-button auth-form-margin" 
@@ -52,7 +48,7 @@
                     Log in
               </button>
               <button 
-                *ngIf="!isLogin"
+                *ngIf="!isLogin && !isLoading"
                 nz-button 
                 [disabled]="authForm.invalid"
                 class="auth-form-button auth-form-margin" 
@@ -60,9 +56,14 @@
                 >
                     Sign up
                 </button>
+                <div *ngIf="isLoading" >
+                    <nz-spin nzSimple></nz-spin>
+                    <h3 *ngIf="isLogin" style="color:#525252;">Logging in...</h3>
+                    <h3 *ngIf="!isLogin" style="color:#525252;">Signing up...</h3>
+                </div>
             </nz-form-control>
                 <button 
-                    *ngIf="isLogin"
+                    *ngIf="isLogin && !isLoading"
                     nz-button 
                     (click)="toggleIsLogin()"
                     [nzType]="'link'"
@@ -70,15 +71,13 @@
                    Or sign up now!
                 </button>
                 <button 
-                    *ngIf="!isLogin"
+                    *ngIf="!isLogin && !isLoading"
                     nz-button 
                     (click)="toggleIsLogin()"
                     [nzType]="'link'"
                 >
                    Or log in here...
                 </button>
-                <!-- <a *ngIf="isLogin" routerLink="/signup">sign up now!</a>
-                <a *ngIf="isLogin" routerLink="/login">log in here...</a> -->
         </form>
     </nz-card>
 </div>

@@ -10,12 +10,9 @@ import { PollService } from '../poll/poll.service';
     providedIn: 'root'
 })
 export class AuthService {
-    private isAuthenticated = false;//REMOVE??
-    public authUserOld: Subject<User>;//REMOVE??
+    redirectUrl = '/';
 
-    constructor(private auth: AngularFireAuth, private pollService: PollService) {
-        this.authUserOld = new Subject<User>();
-    }
+    constructor(private auth: AngularFireAuth, private pollService: PollService) { }
 
     getAuthUser(): Observable<User> {
         return (this.auth.authState

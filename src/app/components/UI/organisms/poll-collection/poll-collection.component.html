@@ -7,6 +7,7 @@
     <div *ngIf="polls.length > 0" class="poll-cards-wrapper">
         <app-poll-card *ngFor="let poll of polls" [poll]="poll" [isPublic]="isPublic"></app-poll-card>
     </div>
-    <h3 *ngIf="polls.length === 0 && isPublic" class="no-polls-message">No public polls have been created yet... <a routerLink="/auth">Log In</a> and create one!</h3>
-    <h3 *ngIf="polls.length === 0 && !isPublic" class="no-polls-message">You have not created any polls yet...</h3>
+    <nz-spin *ngIf="isLoading" nzSimple nzSize="large" class="no-polls-message"></nz-spin>
+    <h3 *ngIf="polls.length === 0 && isPublic && !isLoading" class="no-polls-message">No public polls have been created yet...</h3>
+    <h3 *ngIf="polls.length === 0 && !isPublic && !isLoading" class="no-polls-message">You have not created any polls yet...</h3>
 </div>

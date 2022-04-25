@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { AuthData } from 'src/app/models/auth/auth-data.model';
+import { selectUserAuthStatus } from 'src/app/state/user/user.selectors';
+import { AppState } from 'src/app/state/app.state';
 
 @Component({
   selector: 'app-auth',
@@ -11,7 +14,10 @@ import { AuthData } from 'src/app/models/auth/auth-data.model';
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
+    private isAuthenticated$ = this.store.select(selectUserAuthStatus);
     isLogin = true;
+    isLoading = false;
+    isAuthError = false;
     authForm = new FormGroup({
         email: new FormControl('', [
         Validators.required,
@@ -26,8 +32,8 @@ export class AuthComponent implements OnInit {
         email: '',
         password: ''
     };
-
-    constructor(private readonly authService: AuthService, private readonly router: Router) {}
+    
+    constructor(private store: Store<AppState>, private readonly authService: AuthService, private readonly router: Router) {}
 
     ngOnInit(): void {
     }
@@ -37,6 +43,8 @@ export class AuthComponent implements OnInit {
     }
 
     onSubmit() {
+        this.isLoading = true;
+        
         this.authData = {
             email: this.authForm.get('email')?.value,
             password: this.authForm.get('password')?.value
@@ -45,16 +53,25 @@ export class AuthComponent implements OnInit {
         if (this.isLogin) {
             this.authService
                 .loginUser(this.authData)
-                    .then(() => this.router.navigate(['/my-polls']))
-                    .catch((e) => console.log(e.message));
+                    // .then((user) => {
+                    //     if (user){
+                    //         console.log(this.authService.redirectUrl);
+                    //         setTimeout(() => this.router.navigate([this.authService.redirectUrl]), 800);
+                    //     } 
+                    // })
+                    .catch((e) => {
+                        console.log(e.message);
+                        this.isAuthError = true;
+                        this.isLoading = false;
+                    });
+
+            this.isAuthenticated$.subscribe(() => this.router.navigate([this.authService.redirectUrl]));
         } else {
             this.toggleIsLogin();
             this.authService
                 .registerUser(this.authData)
                     .catch((e) => console.log(e.message));
         }
-        
-
     }
 
 }

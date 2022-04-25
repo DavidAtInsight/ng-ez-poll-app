@@ -41,8 +41,10 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
@@ -132,9 +134,11 @@ const icons: IconDefinition[] = [
         NzNotificationModule,
         NzPageHeaderModule,
         NzPopconfirmModule,
+        NzProgressModule,
         NzRadioModule,
-        NzSwitchModule,
         NzSpaceModule,
+        NzSpinModule,
+        NzSwitchModule,
         NzTagModule,
         NzToolTipModule,
         NzTypographyModule
