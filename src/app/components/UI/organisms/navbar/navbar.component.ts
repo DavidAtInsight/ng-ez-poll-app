@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -13,12 +13,26 @@ import { AppState } from 'src/app/state/app.state';
     styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+    private screenWidth?: number;
+    isSmallView = false;
     isAuthenticated$ = this.store.select(selectUserAuthStatus);
 
-    constructor(private store: Store<AppState>, private authService: AuthService, private router: Router) { }
+    constructor(private store: Store<AppState>, private authService: AuthService, private router: Router) { 
+        this.getScreenSize();
+    }
 
     ngOnInit(): void {
         this.store.dispatch(loadUser());
+    }
+
+    @HostListener('window:resize', ['$event'])
+    getScreenSize() {
+          this.screenWidth = window.innerWidth;
+          if (this.screenWidth < 429) {
+              this.isSmallView = true;
+          } else {
+              this.isSmallView = false;
+          }
     }
 
     logout(): void {

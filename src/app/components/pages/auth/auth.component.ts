@@ -18,6 +18,8 @@ export class AuthComponent implements OnInit {
     isLogin = true;
     isLoading = false;
     isAuthError = false;
+    isPasswordVisible = false;
+    password?: string;
     authForm = new FormGroup({
         email: new FormControl('', [
         Validators.required,
@@ -47,18 +49,12 @@ export class AuthComponent implements OnInit {
         
         this.authData = {
             email: this.authForm.get('email')?.value,
-            password: this.authForm.get('password')?.value
+            password: this.authForm.get('password' || 'text')?.value
         }
 
         if (this.isLogin) {
             this.authService
                 .loginUser(this.authData)
-                    // .then((user) => {
-                    //     if (user){
-                    //         console.log(this.authService.redirectUrl);
-                    //         setTimeout(() => this.router.navigate([this.authService.redirectUrl]), 800);
-                    //     } 
-                    // })
                     .catch((e) => {
                         console.log(e.message);
                         this.isAuthError = true;

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth'
-import { map, Observable, Subject, tap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { AuthData } from 'src/app/models/auth/auth-data.model';
 import { User } from 'src/app/models/auth/user.model';

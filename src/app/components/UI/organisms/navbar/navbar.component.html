@@ -1,7 +1,7 @@
 <div class="navbar-wrapper">
     <nz-page-header>
         <nz-page-header-title class="nav-bar-title"><app-logo routerLink="/"></app-logo></nz-page-header-title>
-        <nz-page-header-subtitle>Polling made easy.</nz-page-header-subtitle>
+        <nz-page-header-subtitle *ngIf="!isSmallView">Polling made easy.</nz-page-header-subtitle>
         <nz-page-header-extra>
             <div>
                 <button 

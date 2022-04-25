@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormGroup, FormArray, FormBuilder, Validators, AbstractFormGroupDirective, AbstractControl } from '@angular/forms'
+import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms'
 import { Store } from '@ngrx/store';
 
 import { Poll } from 'src/app/models/poll/poll.model';
