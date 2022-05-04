@@ -19,7 +19,6 @@ export class AuthComponent implements OnInit {
     isLoading = false;
     isAuthError = false;
     isPasswordVisible = false;
-    password?: string;
     authForm = new FormGroup({
         email: new FormControl('', [
         Validators.required,
