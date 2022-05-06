@@ -1,4 +1,3 @@
-import { TemplateRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockProvider, ngMocks } from 'ng-mocks';
 
@@ -24,16 +23,23 @@ describe('PrivatePollComponent', () => {
         fixture.detectChanges();
     });
 
-    it('should create', () => {
+    it('should create PrivatePollComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should call onSubmit with templateRef', () => {
+    it('should render h3 with "Have a private poll code?"', () => {
+        const element: HTMLElement = fixture.nativeElement;
+        expect(element.textContent).toContain('Have a private poll code?');
+    })
+
+    it('should call onSubmit() with templateRef', () => {
         const onSubmitSpy = jest.spyOn(component, 'onSubmit');
         const templateRef = ngMocks.findTemplateRef('notificationTemplate');
 
+        //simulate onSubmit()
         component.onSubmit(templateRef);
 
+        //template ref should be passed in to onSubmit()
         expect(onSubmitSpy).toBeCalledWith(templateRef);
     })
 });

@@ -1,6 +1,6 @@
 <div class="create-poll-wrapper">
     <button 
-        (click)="showModal()"
+        (click)="toggleModal()"
         nz-button 
         nzSize="large"
         nzType="primary"
@@ -12,7 +12,7 @@
         nzWidth="90%"
         [(nzVisible)]="isVisible" 
         nzTitle="Create New Poll" 
-        (nzOnCancel)="cancelCreate()" 
+        (nzOnCancel)="toggleModal()" 
         [nzFooter]="customModalFooter"
         nzOkText="Create"
         nzCancelText="Cancel"
@@ -23,13 +23,13 @@
                 nzType="text" 
                 nzSize="small"
                 nzDanger
-                (click)="cancelCreate()"
+                (click)="toggleModal()"
             >
                 Cancel
             </button>
         </ng-template>
         <ng-container *nzModalContent>
-            <app-poll-form (closeModal)="cancelCreate()"></app-poll-form>
+            <app-poll-form (closeModal)="toggleModal()"></app-poll-form>
         </ng-container>
       </nz-modal>
 </div>

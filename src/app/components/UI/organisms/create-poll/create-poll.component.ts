@@ -13,12 +13,7 @@ export class CreatePollComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    showModal(): void {
-        this.isVisible = true;
+    toggleModal(): void {
+        this.isVisible = !this.isVisible;
     }
-
-    cancelCreate(): void {
-        this.isVisible = false;
-    }
-
 }

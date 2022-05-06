@@ -19,9 +19,24 @@ describe('CreatePollComponent', () => {
         fixture.detectChanges();
     });
 
-    it('should create', () => {
+    it('should create CreatePollComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    
+    it('should toggle isVisible property', () => {
+        //isVisible should be false at first
+        expect(component.isVisible).toBeFalsy();
+
+        //simulate toggleModal() to show modal
+        component.toggleModal();
+
+        //isVisible should be no be true
+        expect(component.isVisible).toBeTruthy();
+
+        //simulate toggleModal() to hide modal 
+        component.toggleModal();
+
+        //isVisible should be no be false
+        expect(component.isVisible).toBeFalsy();
+    })
 });
